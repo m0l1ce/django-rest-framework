@@ -234,7 +234,9 @@ class BaseSerializer(Field):
                 self._validated_data = self.run_validation(self.initial_data)
             except ValidationError as exc:
                 self._validated_data = {}
-                self._errors = exc.detail
+                # self._errors = exc.detail
+                self._errors["status"] = "error"
+                self._errors["msg"] = exc.detail
             else:
                 self._errors = {}
 
@@ -487,7 +489,8 @@ class Serializer(BaseSerializer, metaclass=SerializerMetaclass):
                 if validate_method is not None:
                     validated_value = validate_method(validated_value)
             except ValidationError as exc:
-                errors[field.field_name] = exc.detail
+                errors["status"] = "error"
+                errors["msg"] = exc.detail
             except DjangoValidationError as exc:
                 errors[field.field_name] = get_error_detail(exc)
             except SkipField:
