@@ -151,8 +151,8 @@ class ValidationError(APIException):
         if not isinstance(detail, dict) and not isinstance(detail, list):
             detail = [detail]
 
-        # self.detail = _get_error_details(detail, code)
-        self.detail = detail
+        self.detail = _get_error_details(detail, code)
+
 
 class ParseError(APIException):
     status_code = status.HTTP_400_BAD_REQUEST
