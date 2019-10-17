@@ -18,7 +18,7 @@ class CreateModelMixin:
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response({"status": "success", "msg": "创建成功"}, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         serializer.save()
@@ -72,7 +72,7 @@ class UpdateModelMixin:
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        return Response(serializer.data)
+        return Response({"status": "success", "msg": "创建成功"}, status=status.HTTP_200_OK)
 
     def perform_update(self, serializer):
         serializer.save()
@@ -89,7 +89,7 @@ class DestroyModelMixin:
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({"status": "success", "msg": "删除成功"}, status=status.HTTP_200_OK)
 
     def perform_destroy(self, instance):
         instance.delete()
