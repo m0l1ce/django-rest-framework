@@ -72,7 +72,7 @@ class UpdateModelMixin:
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
 
-        return Response({"status": "success", "msg": "创建成功"}, status=status.HTTP_200_OK)
+        return Response({"status": "success", "msg": "更新成功"}, status=status.HTTP_200_OK)
 
     def perform_update(self, serializer):
         serializer.save()
