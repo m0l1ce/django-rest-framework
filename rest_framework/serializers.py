@@ -237,7 +237,10 @@ class BaseSerializer(Field):
                 # self._errors = exc.detail
                 self._errors = {}
                 self._errors["status"] = "error"
-                self._errors["msg"] = exc.detail["msg"][0]
+                try:
+                    self._errors["msg"] = exc.detail["msg"][0]
+                except:
+                    self._errors["msg"] = exc.detail["non_field_errors"][0]
             else:
                 self._errors = {}
 
