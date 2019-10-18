@@ -235,8 +235,9 @@ class BaseSerializer(Field):
             except ValidationError as exc:
                 self._validated_data = {}
                 # self._errors = exc.detail
+                self._errors = {}
                 self._errors["status"] = "error"
-                self._errors["msg"] = exc.detail
+                self._errors["msg"] = exc.detail["msg"][0]
             else:
                 self._errors = {}
 
